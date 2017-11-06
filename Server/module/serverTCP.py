@@ -1,17 +1,31 @@
-import socketserver
+import socket
+import threading
 
-class TCPHandler(StreamRequestHandler):
-    def handle(self):
-        #Example
-        buffer,socket_client = self.request
-        reponse = buffer
-        socket_client.send(reponse, self.client_address)
+class ServerTCP():
+    def __init__(self, port):
+        self.run = True
+        self.port = port
 
-class TCPServer_Thread(ThreadingMixIn,TCPServer):
-    pass
+        self.address = ('0.0.0.0', self.port)
+        self.cnx = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #Then we run
+        self.__run()
 
-"""To run the server
-with TCPServer_Thread(('0.0.0.0', 6666), TCPHandler) as serveur:
-thread = threading.Thread(target = serveur.serve_forever)
-thread.daemon = True
-thread.start()"""
+    def __run(self):
+        cnx.bind(self.address)
+        cnx.listen(100)
+        while self.run:
+            (client, addr) = cnx.accept(1024)
+            print("New Client")
+            # We could stock each thread + infos, but it won't be useful
+            threading.Thread(target=self.__newClient, args = [client, addr]).start()
+    def __newClient(self, client, addr):
+        data = ''
+        while data != "&":
+            data = client.recv(1024).decode('ascii').strip("\n")
+            self.__send(client)
+        print("Connection closed")
+        client.close()
+        self.__send(addr) # Not really useful but it look nicer
+    def __send(self, client):
+        client.send(bytearray(toSend, 'ascii'))
