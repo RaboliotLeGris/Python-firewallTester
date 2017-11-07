@@ -12,10 +12,12 @@ class ServerTCP():
         self.__run()
 
     def __run(self):
-        cnx.bind(self.address)
-        cnx.listen(100)
+        print('Setting up TCP server on : ' + str(self.address))
+        self.cnx.bind(self.address)
+        self.cnx.listen(100)
         while self.run:
-            (client, addr) = cnx.accept(1024)
+            temp = self.cnx
+            (client, addr) = temp.accept()
             print("New Client")
             # We could stock each thread + infos, but it won't be useful
             threading.Thread(target=self.__newClient, args = [client, addr]).start()
