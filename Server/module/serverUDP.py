@@ -17,8 +17,7 @@ class ServerUDP():
         while self.run:
             (req, addr) = self.cnx.recvfrom(1024)
             print("New Client")
-            # We could stock each thread + infos, but it won't be useful
-            threading.Thread(target=self.__newClient, args = [req, addr]).start()
+            self.__newClient(req, addr)
     def __newClient(self, req, addr):
         self.__send(addr) # Not really useful but it look nicer
     def __send(self):
