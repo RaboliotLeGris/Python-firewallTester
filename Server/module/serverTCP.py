@@ -12,22 +12,21 @@ class ServerTCP():
         self.__run()
 
     def __run(self):
-        print('Setting up TCP server on : ' + str(self.address))
+        print('TCP - Setting up TCP server on : ' + str(self.address))
         self.cnx.bind(self.address)
         self.cnx.listen(100)
         while self.run:
             temp = self.cnx
             (client, addr) = temp.accept()
-            print("New Client")
             # We could stock each thread + infos, but it won't be useful
             threading.Thread(target=self.__newClient, args = [client, addr]).start()
     def __newClient(self, client, addr):
+        print('TCP - New Client - Sending packet to ' + str(addr))
         data = ''
         while data != "&":
             data = client.recv(1024).decode('ascii').strip("\n")
             self.__send(client)
-        print("Connection closed")
+        print("TCP - Connection closed")
         client.close()
-        self.__send(addr) # Not really useful but it look nicer
     def __send(self, client):
-        client.send(bytearray(toSend, 'ascii'))
+        client.send(bytearray('OK\n', 'ascii'))

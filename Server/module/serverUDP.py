@@ -12,13 +12,12 @@ class ServerUDP():
         self.__run()
 
     def __run(self):
-        print('Setting up UDP server on : ' + str(self.address))
+        print('UDP - Setting up UDP server on : ' + str(self.address))
         self.cnx.bind(self.address)
         while self.run:
             (req, addr) = self.cnx.recvfrom(1024)
-            print("New Client")
+            print("UDP - New Client")
             self.__newClient(req, addr)
     def __newClient(self, req, addr):
-        self.__send(addr) # Not really useful but it look nicer
-    def __send(self):
+        print('UDP - New Client - Sending packet to ' + str(addr))
         self.cnx.sendto( bytearray("OK" + "\t", "ascii"), addr)

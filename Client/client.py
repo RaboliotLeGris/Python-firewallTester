@@ -8,8 +8,8 @@ sys.path.append(os.path.realpath('module'));
 import threading
 
 #Our custom modules
-from serverUDP import ServerUDP
-from serverTCP import ServerTCP
+from clientUDP import ClientUDP
+from clientTCP import ClientTCP
 import fileReader
 
 path = './data/addresses.json'
@@ -17,18 +17,21 @@ path = './data/addresses.json'
 data = fileReader.loadJsonFile(path)['data']
 clients = []
 
+# TODO :
+# Get value from the threads
+# Generate table at the end
+
+
 print("#### Starting clients : ####")
 for toPing in data:
     if toPing['protocole'] == 'TCP':
-        print('TCP')
-        servers.append(threading.Thread(target=ClientTCP, args = [toPing['port']]))
+        clients.append(threading.Thread(target=ClientTCP, args = [toPing['address'], toPing['port']]))
     elif toPing['protocole'] == 'UDP':
-        print('UDP')
-        servers.append(threading.Thread(target=ClientUDP, args = [toPing['port']]))
+        clients.append(threading.Thread(target=ClientUDP, args = [toPing['address'], toPing['port']]))
     elif toPing['protocole'] == 'ICMP':
-        print('ICMP - Not implemented')
+        print('ICMP - Not implemented yet')
     else:
-        print('Unsupported protocole' + toPing['protocole'])
+        print('Unsupported protocole' + ' - ' + toPing['address'] + ' - ' + toPing['protocole'])
 
 for client in clients:
     client.start()
