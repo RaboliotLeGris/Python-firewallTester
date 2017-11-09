@@ -46,6 +46,5 @@ for client in clients:
 #Managing the end of the thread exec (That should never happened)
 for client in clients:
     client.join()
-print('# Over #')
-print(responses)
+print('#### Over ####')
 display.show(responses)

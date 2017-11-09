@@ -13,17 +13,21 @@ class ClientTCP():
         self.__run(response)
 
     def __run(self, response):
-            self.cnx.connect(self.address)
-            print('TCP - Connecting to : ' + str(self.address))
-            buffer = bytearray('-Yolo-\n', 'ascii')
-            self.cnx.send(buffer)
             try:
-                self.cnx.settimeout(10) #Timeout of 10s
-                res = self.cnx.recv(1024)
-            except socket.timeout:
+                self.cnx.connect(self.address)
+            except ConnectionRefusedError:
                 success = 'X'
-                print('TCP - Timed out')
             else:
-                success = 'OK'
-                print('TCP - It Worked - ' + res.decode('ascii').strip("\n"))
+                print('TCP - Connecting to : ' + str(self.address))
+                buffer = bytearray('-Yolo-\n', 'ascii')
+                self.cnx.send(buffer)
+                try:
+                    self.cnx.settimeout(10) #Timeout of 10s
+                    res = self.cnx.recv(1024)
+                except socket.timeout:
+                    success = 'X'
+                    print('TCP - Timed out')
+                else:
+                    success = 'OK'
+                    print('TCP - It Worked - ' + res.decode('ascii').strip("\n"))
             response[self.target].append(('TCP', self.address, self.port, success))
