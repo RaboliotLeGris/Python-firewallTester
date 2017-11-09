@@ -22,11 +22,12 @@ class ServerTCP():
             threading.Thread(target=self.__newClient, args = [client, addr]).start()
     def __newClient(self, client, addr):
         print('TCP - New Client - Sending packet to ' + str(addr))
-        data = ''
-        while data != "&":
-            data = client.recv(1024).decode('ascii').strip("\n")
-            self.__send(client)
+        data = client.recv(1024).decode('ascii').strip("\n")
+        self.__send(client)
         print("TCP - Connection closed")
         client.close()
     def __send(self, client):
+        #try: #It was throwing an annoying and useless error
         client.send(bytearray('OK\n', 'ascii'))
+        #except:
+        #    pass

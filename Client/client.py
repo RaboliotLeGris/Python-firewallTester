@@ -15,6 +15,7 @@ import fileReader
 path = './data/addresses.json'
 
 data = fileReader.loadJsonFile(path)['data']
+responses = []
 clients = []
 
 # TODO :
@@ -25,9 +26,9 @@ clients = []
 print("#### Starting clients : ####")
 for toPing in data:
     if toPing['protocole'] == 'TCP':
-        clients.append(threading.Thread(target=ClientTCP, args = [toPing['address'], toPing['port']]))
+        clients.append(threading.Thread(target=ClientTCP, args = [responses, toPing['address'], toPing['port']]))
     elif toPing['protocole'] == 'UDP':
-        clients.append(threading.Thread(target=ClientUDP, args = [toPing['address'], toPing['port']]))
+        clients.append(threading.Thread(target=ClientUDP, args = [responses, toPing['address'], toPing['port']]))
     elif toPing['protocole'] == 'ICMP':
         print('ICMP - Not implemented yet')
     else:
@@ -40,3 +41,4 @@ for client in clients:
 for client in clients:
     client.join()
 print('Over')
+print(responses)

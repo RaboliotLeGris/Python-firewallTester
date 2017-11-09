@@ -16,7 +16,6 @@ class ServerUDP():
         self.cnx.bind(self.address)
         while self.run:
             (req, addr) = self.cnx.recvfrom(1024)
-            print("UDP - New Client")
             self.__newClient(req, addr)
     def __newClient(self, req, addr):
         print('UDP - New Client - Sending packet to ' + str(addr))
