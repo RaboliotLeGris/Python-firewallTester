@@ -1,7 +1,9 @@
 import socket
 
 class ClientTCP():
-    def __init__(self, response, address, port):
+    def __init__(self, response, target, address, port):
+        self.target = target
+        print(self.target)
         self.address = address
         self.port = port
         self.address = (self.address, self.port)
@@ -24,4 +26,4 @@ class ClientTCP():
             else:
                 success = 'OK'
                 print('TCP - It Worked - ' + res.decode('ascii').strip("\n"))
-            response.append(('TCP', self.address, self.port, success))
+            response[self.target].append(('TCP', self.address, self.port, success))

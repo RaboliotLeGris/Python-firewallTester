@@ -1,7 +1,8 @@
 import socket
 
 class ClientUDP():
-    def __init__(self, response, address, port):
+    def __init__(self, response, target, address, port):
+        self.target = target
         self.address = address
         self.port = port
         self.address = (self.address, self.port)
@@ -23,4 +24,4 @@ class ClientUDP():
         else:
             success = 'OK'
             print('UDP - It Worked - ' + res.decode('ascii').strip("\n"))
-        response.append(('UDP', self.address, self.port, success))
+        response[self.target].append(('UDP', self.address, self.port, success))

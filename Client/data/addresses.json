@@ -1,7 +1,13 @@
 {
-    "data" : [
-        {"protocole": "UDP", "address": "127.0.0.1" ,"port": 2000},
-        {"protocole": "TCP", "address": "127.0.0.1" ,"port": 2000},
-        {"protocole": "ICMP", "address": "127.0.0.1"}
-    ]
+    "data" : {
+        "target1" : [
+            {"protocole": "UDP", "address": "127.0.0.1" ,"port": 2000},
+            {"protocole": "TCP", "address": "127.0.0.1" ,"port": 2000},
+            {"protocole": "ICMP", "address": "127.0.0.1"}
+        ],
+        "target2" : [
+            {"protocole": "UDP", "address": "127.0.0.1" ,"port": 2000},
+            {"protocole": "TCP", "address": "127.0.0.1" ,"port": 2000}
+        ]
+    }
 }
