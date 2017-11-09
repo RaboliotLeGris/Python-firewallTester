@@ -10,6 +10,7 @@ import threading
 #Our custom modules
 from clientUDP import ClientUDP
 from clientTCP import ClientTCP
+from clientICMP import ClientICMP
 import fileReader
 
 path = './data/addresses.json'
@@ -30,7 +31,7 @@ for toPing in data:
     elif toPing['protocole'] == 'UDP':
         clients.append(threading.Thread(target=ClientUDP, args = [responses, toPing['address'], toPing['port']]))
     elif toPing['protocole'] == 'ICMP':
-        print('ICMP - Not implemented yet')
+        clients.append(threading.Thread(target=ClientICMP, args=[responses, toPing['address']]))
     else:
         print('Unsupported protocole' + ' - ' + toPing['address'] + ' - ' + toPing['protocole'])
 
