@@ -2,12 +2,17 @@ import socket
 import threading
 
 class ServerTCP():
-    def __init__(self, port):
+    def __init__(self, ipType, port):
         self.run = True
         self.port = port
 
-        self.address = ('0.0.0.0', self.port)
-        self.cnx = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        if ipType == 4:
+            self.address = ('0.0.0.0', self.port)
+            self.cnx = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        else:
+            self.address = ('::', self.port)
+            self.cnx = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+
         #Then we run
         self.__run()
 

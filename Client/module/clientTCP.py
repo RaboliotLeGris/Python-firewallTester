@@ -1,14 +1,18 @@
 import socket
 
 class ClientTCP():
-    def __init__(self, response, target, address, port):
+    def __init__(self, response, target, ipType, address, port):
         self.target = target
         print(self.target)
         self.address = address
         self.port = port
         self.address = (self.address, self.port)
 
-        self.cnx = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        if ipType == 4:
+            self.cnx = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        else:
+            self.cnx = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
+
         #Then we run
         self.__run(response)
 

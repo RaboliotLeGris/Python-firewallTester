@@ -1,6 +1,6 @@
 {
     "data" : [
-        {"protocole": "UDP", "port": 2000},
-        {"protocole": "TCP", "port": 2000}
+        {"protocole": "UDP", "port": 2000, "IPv": 4},
+        {"protocole": "TCP", "port": 2000, "IPv": 6}
     ]
 }

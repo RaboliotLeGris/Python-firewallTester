@@ -32,9 +32,9 @@ for target in data:
     responses[target] = [] #A bit unordered
     for toPing in data[target]:
         if toPing['protocole'] == 'TCP':
-            clients.append(threading.Thread(target=ClientTCP, args = [responses, target, toPing['address'], toPing['port']]))
+            clients.append(threading.Thread(target=ClientTCP, args = [responses, target, toPing["ipType"], toPing['address'], toPing['port']]))
         elif toPing['protocole'] == 'UDP':
-            clients.append(threading.Thread(target=ClientUDP, args = [responses, target, toPing['address'], toPing['port']]))
+            clients.append(threading.Thread(target=ClientUDP, args = [responses, target, toPing["ipType"], toPing['address'], toPing['port']]))
         elif toPing['protocole'] == 'ICMP':
             clients.append(threading.Thread(target=ClientICMP, args=[responses, target, toPing['address']]))
         else:
